@@ -1,0 +1,179 @@
+@import 'variables';
+@import 'reset';
+@import 'mixins';
+html{
+  font-family: $font-fam;
+  font-size:32px;
+  background: $bg-gradient2;
+
+};
+.is--hidden{
+  display:none;
+};
+
+/* HEADER */
+body{
+
+  .score-banner--container{
+    @include scorekeeperbox;
+    .score-banner--scorekeeper{
+      @include scorebannerscorekeeper;
+    };
+    .score-banner--heading{
+      @include score-heading($score-text,40%,600);
+    };
+    .score-banner--digit{
+      @include score-heading($dark-text,150%,700);
+    };
+
+    .score-banner--item-logo{
+      img{ @include logo-img }
+    };
+  };
+};
+
+/* GAME PLAY SECTION */
+body{
+  // margin:auto;
+  .main{
+    .game-container{
+      @include game--container();
+      .game-pentagon-container{
+        position:absolute;
+
+        height:10px;
+        .pentagon{
+          @include pentagon--sizing();
+        };
+      };
+      @include game-choice($game-choices,$border-gradients);
+      @include game-choice-position($game-choices);
+
+      .game--item-rock{
+        @media(min-width: $desktops){
+          transform: translateY(-5px);
+        };
+      };
+      @include user-selection-position($game-choices);
+
+      .game--item{
+        img{
+          width:60px;
+          height:60px;
+          @media(min-width:$desktop-screen){
+            width:90px;
+            height:90px;
+          }
+        };
+      };
+    };
+  };
+
+  .gameplay-container{
+
+    @include game--container();
+
+    .gameplay--choices--house{
+      @include housegame-choice($game-choices,$border-gradients)
+
+      .h-border--parent{
+        position:absolute;
+        width:1px;
+        height:1px;
+
+        .house--border-win{
+          @include house--winner();
+        };
+        .user--border-win{
+          @include user--winner();
+        };
+      };
+
+      .house-parent{
+        position:relative;
+        .house--choice{
+          @include house-choice--position();
+          img{
+
+            width:90px;
+            height:90px;
+          };
+        };
+      };
+    };
+
+    .round-outcome--parent{
+      position:absolute;
+      .gameplay--round-outcome{
+
+        @include outcome-text();
+      };
+      .user-choice--text{
+        @include user-choice-text();
+      };
+
+      .house-choice--text{
+        @include house-choice-text();
+      };
+    };
+
+    .gameplay--play-again{
+      position:absolute;
+      @include play-again-button--placement();
+
+      .gameplay--play--again--button{
+        position:relative;
+        @include play-again-button()
+        transition:.5s;
+        &:hover{
+          @media(min-width:$desktop-screen){
+            background-color: $bg-gradient1;
+            color:$bright-clr;
+            border-color:$bright-clr;
+          };
+        };
+      };
+    };
+  };
+};
+
+
+/* RULE INFORMATION MODAL */
+body{
+  .rules-info--container{
+    @include rules-info-modal();
+    @include rules-info-modal-desktop();
+  };
+
+  .rules-info--heading{
+    font-size:80%;
+    @include rules-info-heading();
+  };
+  .rules-info--content{
+
+    img{
+      margin:auto;
+      @include rules-img();
+    };
+  };
+  .info-close-button{
+    @include rules-info-close();
+  };
+
+  .info-close__image:hover,
+  .info-close__image:focus{
+    cursor:pointer;
+  };
+};
+/* APP FOOTER */
+.main-footer{
+  display:flex;
+  justify-content: center;
+  .rules-button-container{
+    position:absolute;
+    .rules--button{
+      @include rules-button--placement;
+      @include rules-button--styling;
+    };
+  };
+};
